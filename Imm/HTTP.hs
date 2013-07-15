@@ -27,13 +27,13 @@ getRaw uri = do
 
 -- | Monad-agnostic version of 'withManager'
 withManager' f = do
-    res <- timeout 11000000 $ (Right <$> withManager f) `catch` (return . Left . IOE) `catch` (return . Left . HTTPError) `catch` (return . Left . TLSError)
+    res <- timeout 11000000 $ (Right <$> withManager f) `E.catch` (return . Left . IOE) `E.catch` (return . Left . HTTPError) `E.catch` (return . Left . TLSError)
     either throwError return res
 
 -- | Monad-agnostic version of 'parseUrl'
 parseURL :: (MonadBase IO m, MonadError ImmError m) => String -> m (Request m')
 parseURL uri = do
-    result <- io $ (Right <$> parseUrl uri) `catch` (return . Left . HTTPError)
+    result <- io $ (Right <$> parseUrl uri) `E.catch` (return . Left . HTTPError)
     either throwError return result
 
 -- | Build an HTTP request for given URI
