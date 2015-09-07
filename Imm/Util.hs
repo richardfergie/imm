@@ -53,5 +53,5 @@ parseURI uri = maybe (throwError $ ParseUriError uri) return $ N.parseURI uri
 
 -- | Monad-agnostic version of 'Data.Time.Format.parseTime'
 parseTime :: (MonadError ImmError m) => String -> m UTCTime
-parseTime string = maybe (throwError $ ParseTimeError string) return $ T.parseTime defaultTimeLocale "%c" string
+parseTime string = maybe (throwError $ ParseTimeError string) return $ T.parseTime T.defaultTimeLocale "%c" string
 -- }}}

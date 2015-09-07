@@ -50,7 +50,7 @@ storeLastCheck feedUri date = do
     directory <- getStateDirectory
 
     (file, stream) <- try $ openTempFile directory fileName
-    io $ hPutStrLn stream (formatTime defaultTimeLocale "%c" date)
+    io $ hPutStrLn stream (formatTime Data.Time.defaultTimeLocale "%c" date)
     io $ hClose stream
     try $ renameFile file (directory </> fileName)
   where

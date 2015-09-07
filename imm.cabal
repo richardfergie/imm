@@ -49,7 +49,7 @@ Library
         http-types,
         lens,
         mime-mail,
-        monad-control,
+        monad-control < 1,
         mtl,
         network,
         old-locale,
@@ -63,7 +63,8 @@ Library
         tls,
         utf8-string,
         xdg-basedir,
-        xml
+        xml,
+        network-uri
     Extensions:
         ConstraintKinds,
         KindSignatures,

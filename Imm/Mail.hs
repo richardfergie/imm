@@ -45,7 +45,7 @@ instance Default Mail where
 instance Show Mail where
     show mail = unlines [
         "Return-Path: " ++ view returnPath mail,
-        maybe "" (("Date: " ++) . showRFC2822) . view date $ mail,
+        maybe "" (("Date: " ++) . formatTimeRFC2822) . view date $ mail,
         "From: " ++ view from mail,
         "Subject: " ++ view subject mail,
         "Content-Type: " ++ view mime mail ++ "; charset=" ++ view charset mail,

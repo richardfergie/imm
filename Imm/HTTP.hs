@@ -1,4 +1,5 @@
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE FlexibleContexts #-}
 module Imm.HTTP where
 
 -- {{{ Imports
@@ -31,13 +32,13 @@ withManager' f = do
     either throwError return res
 
 -- | Monad-agnostic version of 'parseUrl'
-parseURL :: (MonadBase IO m, MonadError ImmError m) => String -> m (Request m')
+parseURL :: (MonadBase IO m, MonadError ImmError m) => String -> m (Request)
 parseURL uri = do
     result <- io $ (Right <$> parseUrl uri) `E.catch` (return . Left . HTTPError)
     either throwError return result
 
 -- | Build an HTTP request for given URI
-request :: (MonadBase IO m, MonadError ImmError m) => String -> m (Request a)
+request :: (MonadBase IO m, MonadError ImmError m) => String -> m (Request)
 request uri = do
     req <- parseURL uri
     return $ req { requestHeaders = [
